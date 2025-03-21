@@ -64,6 +64,7 @@ left join
     )od on od.order_time=receive.receive_time and od.sku_code=receive.sku_code and od.batch_code=receive.batch_code;
 '''
 
+
 @st.cache_data(ttl="30m")
 def get_data(sql_str: str):
     sfa_conn = st.connection("sfa")
