@@ -70,13 +70,15 @@ def get_data(sql_str: str):
     sfa_conn = st.connection("sfa")
     return sfa_conn.query(sql_str)
 
-data=get_data(sql)
 
-df = pd.DataFrame(data)
+
 
 def show_st():
     st.title("一个数据报表")
     st.header("数据结果")
+    if st.button("加载数据"):
+        data=get_data(sql)
+        df = pd.DataFrame(data)
     st.dataframe(df,height=500,use_container_width=False)
 
 show_st()
