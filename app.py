@@ -67,7 +67,7 @@ left join
 
 @st.cache_data(ttl="30m")
 def get_data(sql_str: str):
-    sfa_conn = st.connection("sfa")
+    sfa_conn = st.connection("sfa",type='sql')
     return sfa_conn.query(sql_str)
 
 
@@ -79,6 +79,6 @@ def show_st():
     if st.button("加载数据"):
         data=get_data(sql)
         df = pd.DataFrame(data)
-    st.dataframe(df,height=500,use_container_width=False)
+    st.dataframe(data,height=500,use_container_width=False)
 
 show_st()
