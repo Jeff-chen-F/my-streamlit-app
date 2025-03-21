@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import pymysql
+pymysql.install_as_MySQLdb()
 
 
 st.set_page_config(
