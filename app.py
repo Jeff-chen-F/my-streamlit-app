@@ -6,19 +6,6 @@ st.set_page_config(
     layout="wide",
 )
 
-def connect(sql_str: str):
-    try:
-        conn=pymysql.connect(host='39.108.19.223',port=33888,user='lbkQuery',password='lbk@#2025',database='prod_cloud_platform',charset='utf8')
-        cs=conn.cursor()
-        cs.execute(sql_str)
-        data=cs.fetchall()
-        return data
-    except Exception as e:
-        print(e)
-    finally:
-        cs.close()
-        conn.close()
-
 sql = '''select
 receive.batch_code '生产批次',
 receive.sku_name '产品',
@@ -79,12 +66,10 @@ left join
 '''
 
 
-@st.cache_data(ttl="30m")
-# def get_data(sql_str: str):
-#     sfa_conn = st.connection("sfa",type='sql')
-#     return sfa_conn.query(sql_str)
-
-
+# @st.cache_data(ttl="30m")
+def connect(sql):
+    conn=st.connection('mysql',type='sql')
+    return conn.query(sql)
 
 
 def show_st():
@@ -92,7 +77,6 @@ def show_st():
     st.header("数据结果")
     if st.button("加载数据"):
         data=connect(sql)
-        # df = pd.DataFrame(data)
         st.dataframe(data,height=500,use_container_width=False)
 
 show_st()
