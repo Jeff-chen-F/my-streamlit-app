@@ -79,6 +79,6 @@ def show_st():
     if st.button("加载数据"):
         data=get_data(sql)
         df = pd.DataFrame(data)
-    st.dataframe(data,height=500,use_container_width=False)
+        st.dataframe(data,height=500,use_container_width=False)
 
 show_st()
