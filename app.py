@@ -72,6 +72,7 @@ left join
 def get_db_connection():
     return st.connection("mysql", type="sql")
 
+# 数据缓存30分钟
 @st.cache_data(ttl=1800)
 def query_data(sql: str) -> pd.DataFrame:
     conn = get_db_connection()
