@@ -82,7 +82,6 @@ def show_st():
     st.title("一个数据报表")
     st.header("数据结果")
     try:
-        st.write("sql: ",sql)
         if st.button("加载数据"):
             data=query_data(sql)
             st.dataframe(data,height=500,use_container_width=False)
