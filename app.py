@@ -66,6 +66,9 @@ left join
             sp.show_code
     )od on od.order_time=receive.receive_time and od.sku_code=receive.sku_code and od.batch_code=receive.batch_code;
 '''
+sql2='''select id,show_code,name,d2s
+from sys_product
+limit 500;'''
 
 # 数据库连接函数
 @st.cache_resource  # 缓存数据库连接
@@ -76,7 +79,7 @@ def get_db_connection():
 @st.cache_data(ttl=1800)
 def query_data(sql: str) -> pd.DataFrame:
     conn = get_db_connection()
-    return conn.query(sql)
+    return conn.query(sql2)
 
 
 def show_st():
