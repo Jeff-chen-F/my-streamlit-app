@@ -4,6 +4,7 @@ import pandas as pd # type: ignore
 
 
 st.set_page_config(
+    page_title="数据看板",
     layout="wide",
 )
 
@@ -71,7 +72,7 @@ left join
 def get_db_connection():
     return st.connection("mysql", type="sql")
 
-# @st.cache_data(ttl="30m")
+@st.cache_data(ttl=1800)
 def query_data(sql: str) -> pd.DataFrame:
     conn = get_db_connection()
     return conn.query(sql)
