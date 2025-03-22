@@ -68,15 +68,10 @@ sql2='''select id,show_code,name,d2s
 from sys_product
 limit 500;'''
 
-# 数据库连接函数
-@st.cache_resource  # 缓存数据库连接
-def get_db_connection():
-    return st.connection("mysql", type="sql")
-
 # 数据缓存30分钟
 @st.cache_data(ttl=1800)
 def query_data(sql: str) -> pd.DataFrame:
-    conn = get_db_connection()
+    conn = st.connection("mysql", type="sql")
     return conn.query(sql2)
 
 
