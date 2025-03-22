@@ -72,7 +72,7 @@ limit 500;'''
 # @st.cache_data(ttl=1800)
 def query_data(sql: str) -> pd.DataFrame:
     conn = st.connection("mysql", type="sql")
-    return conn.query(sql2)
+    return conn.query(sql)
 
 
 def show_st():
