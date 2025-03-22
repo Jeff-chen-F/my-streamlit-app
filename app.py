@@ -12,7 +12,7 @@ limit 500;'''
 
 # 数据缓存30分钟
 # @st.cache_data(ttl=1800)
-def query_data(sql_str: str) -> pd.DataFrame:
+def query_data(sql_str: str):
     conn = st.connection("mysql", type="sql")
     return conn.query(sql_str)
 
