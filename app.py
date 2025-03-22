@@ -1,8 +1,6 @@
 import streamlit as st # type: ignore
 import pandas as pd # type: ignore
 
-
-
 st.set_page_config(
     page_title="数据看板",
     layout="wide",
