@@ -69,7 +69,7 @@ from sys_product
 limit 500;'''
 
 # 数据缓存30分钟
-@st.cache_data(ttl=1800)
+# @st.cache_data(ttl=1800)
 def query_data(sql: str) -> pd.DataFrame:
     conn = st.connection("mysql", type="sql")
     return conn.query(sql2)
