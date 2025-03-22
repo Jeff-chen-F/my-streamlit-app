@@ -1,10 +1,15 @@
-import streamlit as st
-import pandas as pd
+import streamlit as st # type: ignore
+import pandas as pd # type: ignore
+
 
 
 st.set_page_config(
     layout="wide",
 )
+
+if "connections" not in st.secrets:
+    st.error("❌ 数据库配置缺失！请检查 secrets 设置")
+    st.stop()
 
 sql = '''select
 receive.batch_code '生产批次',
@@ -65,18 +70,27 @@ left join
     )od on od.order_time=receive.receive_time and od.sku_code=receive.sku_code and od.batch_code=receive.batch_code;
 '''
 
+# 数据库连接函数
+@st.cache_resource  # 缓存数据库连接
+def get_db_connection():
+    return st.connection("mysql", type="sql")
 
 # @st.cache_data(ttl="30m")
-def connect(sql):
-    conn=st.connection('mysql',type='sql')
+def query_data(sql: str) -> pd.DataFrame:
+    conn = get_db_connection()
     return conn.query(sql)
 
 
 def show_st():
     st.title("一个数据报表")
     st.header("数据结果")
-    if st.button("加载数据"):
-        data=connect(sql)
-        st.dataframe(data,height=500,use_container_width=False)
+    try:
+        st.write("sql: ",sql)
+        if st.button("加载数据"):
+            data=query_data(sql)
+            st.dataframe(data,height=500,use_container_width=False)
+    except Exception as e:
+        st.error(f"❌ 数据库连接失败: {e}")
 
-show_st()
+if __name__ == "__main__":
+    show_st()
