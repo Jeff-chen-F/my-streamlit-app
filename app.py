@@ -7,10 +7,6 @@ st.set_page_config(
     layout="wide",
 )
 
-if "connections" not in st.secrets:
-    st.error("❌ 数据库配置缺失！请检查 secrets 设置")
-    st.stop()
-
 sql = '''select
 receive.batch_code '生产批次',
 receive.sku_name '产品',
