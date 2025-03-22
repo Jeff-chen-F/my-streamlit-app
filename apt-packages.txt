@@ -1,2 +1,0 @@
-libmysqlclient-dev
-pkg-config
