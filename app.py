@@ -80,7 +80,7 @@ def show_st():
     st.header("数据结果")
     try:
         if st.button("加载数据"):
-            data=query_data(sql)
+            data=query_data(sql2)
             st.dataframe(data,height=500,use_container_width=False)
     except Exception as e:
         st.error(f"❌ 数据库连接失败: {e}")
